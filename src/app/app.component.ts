@@ -36,7 +36,7 @@ export class AppComponent {
       description: 'Feature 1 description',
       priority: 'High',
       project: this.projects[0],
-      owner: 'John Doe',
+      owner: 'Adam Kowalski',
       status: TaskStatus.Todo
     },
     {
@@ -44,7 +44,7 @@ export class AppComponent {
       description: 'Feature 2 description',
       priority: 'Medium',
       project: this.projects[0],
-      owner: 'Jane Smith',
+      owner: 'Wojciech Kowalski',
       status: TaskStatus.Todo
     },
     {
@@ -52,7 +52,7 @@ export class AppComponent {
       description: 'Feature 3 description',
       priority: 'Low',
       project: this.projects[1],
-      owner: 'Mike Johnson',
+      owner: 'Robert Kowalski',
       status: TaskStatus.Todo
     }
   ];

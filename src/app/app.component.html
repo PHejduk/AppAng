@@ -6,8 +6,7 @@
     <div class="projects">
       <h2>Projects</h2>
       <ul class="project-list">
-        <li *ngFor="let project of projects" [class.active]="project === selectedProject"
-            (click)="selectProject(project)">
+        <li *ngFor="let project of projects" [class.active]="project === selectedProject" (click)="selectProject(project)">
           {{ project.name }}
           <button (click)="editProject(project)">Edit</button>
           <button (click)="deleteProject(project)">Delete</button>
@@ -31,65 +30,81 @@
         </form>
       </div>
     </div>
-  </div>
 
-  <div class="details">
-    <h3>Project Details</h3>
-    <div *ngIf="selectedProject">
-      <p>Name: {{ selectedProject.name }}</p>
-      <p>Description: {{ selectedProject.description }}</p>
+    <div class="features">
+      <h2>Features</h2>
+      <ul class="feature-list">
+        <li *ngFor="let feature of getFeaturesForSelected()" [class.active]="feature === selectedFeature" (click)="showFeatureDetails(feature)">
+          {{ feature.name }}
+          <button (click)="editFeature(feature)">Edit</button>
+          <button (click)="deleteFeature(feature)">Delete</button>
+        </li>
+      </ul>
+      <button (click)="addNewFeatureFormVisible = true">Add feature</button>
+
+      <div *ngIf="addNewFeatureFormVisible">
+        <h3>Add New Feature</h3>
+        <form (ngSubmit)="addNewFeature()">
+          <div>
+            <label for="newFeatureName">Name:</label>
+            <input type="text" id="newFeatureName" [(ngModel)]="newFeatureName" [ngModelOptions]="{standalone: true}" required>
+          </div>
+          <div>
+            <label for="newFeatureDescription">Description:</label>
+            <textarea id="newFeatureDescription" [(ngModel)]="newFeatureDescription" [ngModelOptions]="{standalone: true}"></textarea>
+          </div>
+          <div>
+            <label for="newFeaturePriority">Priority:</label>
+            <select id="newFeaturePriority" [(ngModel)]="newFeaturePriority" [ngModelOptions]="{standalone: true}">
+              <option value="High">High</option>
+              <option value="Medium">Medium</option>
+              <option value="Low">Low</option>
+            </select>
+          </div>
+          <button type="submit">Save</button>
+          <button type="button" (click)="cancelNewFeature()">Cancel</button>
+        </form>
+      </div>
     </div>
-    <div *ngIf="selectedProjectToEdit">
-      <h3>Edit Project</h3>
-      <form (ngSubmit)="saveEditedProject(selectedProjectToEdit)">
-        <div>
-          <label for="editProjectName">Name:</label>
-          <input type="text" id="editProjectName" [(ngModel)]="editProjectName" [ngModelOptions]="{standalone: true}" required>
-        </div>
-        <div>
-          <label for="editProjectDescription">Description:</label>
-          <textarea id="editProjectDescription" [(ngModel)]="editProjectDescription" [ngModelOptions]="{standalone: true}"></textarea>
-        </div>
-        <button type="submit">Save</button>
-        <button type="button" (click)="cancelEditProject()">Cancel</button>
-      </form>
-    </div>
-  </div>
 
-  <div class="features">
-    <h2>Features</h2>
-    <ul class="feature-list">
-      <li *ngFor="let feature of getFeaturesForSelected()" [class.active]="feature === selectedFeature"
-          (click)="showFeatureDetails(feature)">
-        {{ feature.name }}
-        <button (click)="editFeature(feature)">Edit</button>
-        <button (click)="deleteFeature(feature)">Delete</button>
-      </li>
-    </ul>
-    <button (click)="addNewFeatureFormVisible = true">Add feature</button>
+    <div class="tasks">
+      <h2>Tasks</h2>
+      <ul class="task-list">
+        <li *ngFor="let task of getTasksForSelected()" [class.active]="task === selectedTask" (click)="showTaskDetails(task)">
+          {{ task.name }}
+          <button (click)="editTask(task)">Edit</button>
+          <button (click)="deleteTask(task)">Delete</button>
+        </li>
+      </ul>
+      <button (click)="addNewTaskFormVisible = true">Add task</button>
 
-    <div *ngIf="addNewFeatureFormVisible">
-      <h3>Add New Feature</h3>
-      <form (ngSubmit)="addNewFeature()">
-        <div>
-          <label for="newFeatureName">Name:</label>
-          <input type="text" id="newFeatureName" [(ngModel)]="newFeatureName" [ngModelOptions]="{standalone: true}" required>
-        </div>
-        <div>
-          <label for="newFeatureDescription">Description:</label>
-          <textarea id="newFeatureDescription" [(ngModel)]="newFeatureDescription" [ngModelOptions]="{standalone: true}"></textarea>
-        </div>
-        <div>
-          <label for="newFeaturePriority">Priority:</label>
-          <select id="newFeaturePriority" [(ngModel)]="newFeaturePriority" [ngModelOptions]="{standalone: true}">
-            <option value="High">High</option>
-            <option value="Medium">Medium</option>
-            <option value="Low">Low</option>
-          </select>
-        </div>
-        <button type="submit">Save</button>
-        <button type="button" (click)="cancelNewFeature()">Cancel</button>
-      </form>
+      <div *ngIf="addNewTaskFormVisible">
+        <h3>Add New Task</h3>
+        <form (ngSubmit)="addNewTask()">
+          <div>
+            <label for="newTaskName">Name:</label>
+            <input type="text" id="newTaskName" [(ngModel)]="newTaskName" [ngModelOptions]="{standalone: true}" required>
+          </div>
+          <div>
+            <label for="newTaskDescription">Description:</label>
+            <textarea id="newTaskDescription" [(ngModel)]="newTaskDescription" [ngModelOptions]="{standalone: true}"></textarea>
+          </div>
+          <div>
+            <label for="newTaskPriority">Priority:</label>
+            <select id="newTaskPriority" [(ngModel)]="newTaskPriority" [ngModelOptions]="{standalone: true}">
+              <option value="High">High</option>
+              <option value="Medium">Medium</option>
+              <option value="Low">Low</option>
+            </select>
+          </div>
+          <div>
+            <label for="newTaskEstimatedCompletionTime">Estimated Completion Time:</label>
+            <input type="number" id="newTaskEstimatedCompletionTime" [(ngModel)]="newTaskEstimatedCompletionTime" [ngModelOptions]="{standalone: true}" required>
+          </div>
+          <button type="submit">Save</button>
+          <button type="button" (click)="cancelNewTask()">Cancel</button>
+        </form>
+      </div>
     </div>
   </div>
 
@@ -126,50 +141,7 @@
         <button type="button" (click)="cancelEditFeature()">Cancel</button>
       </form>
     </div>
-  </div>
 
-  <div class="tasks">
-    <h2>Tasks</h2>
-    <ul class="task-list">
-      <li *ngFor="let task of getTasksForSelected()" [class.active]="task === selectedTask"
-          (click)="showTaskDetails(task)">
-        {{ task.name }}
-        <button (click)="editTask(task)">Edit</button>
-        <button (click)="deleteTask(task)">Delete</button>
-      </li>
-    </ul>
-    <button (click)="addNewTaskFormVisible = true">Add task</button>
-
-    <div *ngIf="addNewTaskFormVisible">
-      <h3>Add New Task</h3>
-      <form (ngSubmit)="addNewTask()">
-        <div>
-          <label for="newTaskName">Name:</label>
-          <input type="text" id="newTaskName" [(ngModel)]="newTaskName" [ngModelOptions]="{standalone: true}" required>
-        </div>
-        <div>
-          <label for="newTaskDescription">Description:</label>
-          <textarea id="newTaskDescription" [(ngModel)]="newTaskDescription" [ngModelOptions]="{standalone: true}"></textarea>
-        </div>
-        <div>
-          <label for="newTaskPriority">Priority:</label>
-          <select id="newTaskPriority" [(ngModel)]="newTaskPriority" [ngModelOptions]="{standalone: true}">
-            <option value="High">High</option>
-            <option value="Medium">Medium</option>
-            <option value="Low">Low</option>
-          </select>
-        </div>
-        <div>
-          <label for="newTaskEstimatedCompletionTime">Estimated Completion Time:</label>
-          <input type="number" id="newTaskEstimatedCompletionTime" [(ngModel)]="newTaskEstimatedCompletionTime" [ngModelOptions]="{standalone: true}" required>
-        </div>
-        <button type="submit">Save</button>
-        <button type="button" (click)="cancelNewTask()">Cancel</button>
-      </form>
-    </div>
-  </div>
-
-  <div class="details">
     <h3>Task Details</h3>
     <div *ngIf="selectedTask">
       <p>Name: {{ selectedTask.name }}</p>
