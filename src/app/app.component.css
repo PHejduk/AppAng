@@ -12,9 +12,12 @@ html, body, div, span, app-root, app-root > div {
   margin: 0 auto;
   padding: 20px;
   font-family: Arial, sans-serif;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .header {
+  width: 100%;
   background-color: #333;
   padding: 10px;
   color: #fff;
@@ -25,41 +28,31 @@ html, body, div, span, app-root, app-root > div {
 }
 
 .content {
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
 }
 
-.projects,
-.features,
-.tasks {
-  flex-basis: calc(33.33% - 20px);
-  margin-top: 20px;
+.projects, .features, .tasks {
+  flex: 1;
+  margin-right: 20px;
 }
 
-.projects h2,
-.features h2,
-.tasks h2 {
+.projects h2, .features h2, .tasks h2 {
   margin-bottom: 10px;
 }
 
-.project-list,
-.feature-list,
-.task-list {
+.project-list, .feature-list, .task-list {
   list-style-type: none;
   padding: 0;
 }
 
-.project-list li,
-.feature-list li,
-.task-list li {
+.project-list li, .feature-list li, .task-list li {
   margin-bottom: 5px;
   cursor: pointer;
 }
 
-.project-list li.active,
-.feature-list li.active,
-.task-list li.active {
+.project-list li.active, .feature-list li.active, .task-list li.active {
   font-weight: bold;
 }
 
@@ -78,13 +71,25 @@ button:hover {
 }
 
 .details {
+  width: 100%;
   margin-top: 20px;
   border-top: 1px solid #ccc;
   padding-top: 10px;
+  display: flex;
 }
 
 .details h3 {
   margin-bottom: 10px;
+  margin-right: 20px;
+}
+
+.details-content {
+  max-width: 400px;
+  flex: 1;
+}
+
+.details-content p {
+  margin-bottom: 5px;
 }
 
 form {
@@ -92,7 +97,7 @@ form {
 }
 
 form div {
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 
 label {
@@ -101,14 +106,14 @@ label {
 }
 
 input, textarea, select {
-  width: 100%;
+  width: calc(100% - 120px);
   padding: 5px;
   border: 1px solid #ccc;
   border-radius: 3px;
 }
 
 select {
-  width: 100%;
+  width: calc(100% - 120px);
   padding: 5px;
   border: 1px solid #ccc;
   border-radius: 3px;
