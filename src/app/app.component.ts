@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { TaskStatus } from './task-status.enum';
 import { Project } from "./model/Project";
 import { Feature } from "./model/Feature";
 import { Task } from "./model/Task";
@@ -11,9 +12,9 @@ import { User } from "./model/User";
 })
 export class AppComponent {
   currentUser: User = {
-    login: 'tkopacz',
-    firstName: 'Tomasz',
-    lastName: 'Kopacz',
+    login: 'phejduk',
+    firstName: 'Piotr',
+    lastName: 'Hejduk',
     permissions: 'admin',
     password: '123'
   };
@@ -36,7 +37,7 @@ export class AppComponent {
       priority: 'High',
       project: this.projects[0],
       owner: 'John Doe',
-      status: 'todo'
+      status: TaskStatus.Todo
     },
     {
       name: 'Feature 2',
@@ -44,7 +45,7 @@ export class AppComponent {
       priority: 'Medium',
       project: this.projects[0],
       owner: 'Jane Smith',
-      status: 'todo'
+      status: TaskStatus.Todo
     },
     {
       name: 'Feature 3',
@@ -52,7 +53,7 @@ export class AppComponent {
       priority: 'Low',
       project: this.projects[1],
       owner: 'Mike Johnson',
-      status: 'todo'
+      status: TaskStatus.Todo
     }
   ];
 
@@ -63,7 +64,7 @@ export class AppComponent {
       priority: 'High',
       feature: this.features[0],
       estimatedCompletionTime: 5,
-      status: 'todo',
+      status: TaskStatus.Todo,
       dateAdded: new Date(),
       startDate: new Date(),
       endDate: new Date(),
@@ -75,7 +76,7 @@ export class AppComponent {
       priority: 'Medium',
       feature: this.features[0],
       estimatedCompletionTime: 3,
-      status: 'todo',
+      status: TaskStatus.Todo,
       dateAdded: new Date(),
       startDate: new Date(),
       endDate: new Date(),
@@ -87,7 +88,7 @@ export class AppComponent {
       priority: 'Medium',
       feature: this.features[1],
       estimatedCompletionTime: 2,
-      status: 'todo',
+      status: TaskStatus.Todo,
       dateAdded: new Date(),
       startDate: new Date(),
       endDate: new Date(),
@@ -99,7 +100,7 @@ export class AppComponent {
       priority: 'Low',
       feature: this.features[1],
       estimatedCompletionTime: 1,
-      status: 'todo',
+      status: TaskStatus.Todo,
       dateAdded: new Date(),
       startDate: new Date(),
       endDate: new Date(),
@@ -111,7 +112,7 @@ export class AppComponent {
       priority: 'Low',
       feature: this.features[2],
       estimatedCompletionTime: 4,
-      status: 'todo',
+      status: TaskStatus.Todo,
       dateAdded: new Date(),
       startDate: new Date(),
       endDate: new Date(),
@@ -123,7 +124,7 @@ export class AppComponent {
       priority: 'Medium',
       feature: this.features[2],
       estimatedCompletionTime: 2,
-      status: 'todo',
+      status: TaskStatus.Todo,
       dateAdded: new Date(),
       startDate: new Date(),
       endDate: new Date(),
@@ -194,25 +195,25 @@ export class AppComponent {
     return [];
   }
 
-  getFeatureStatus(feature: Feature): string {
+  getFeatureStatus(feature: Feature): TaskStatus {
     const tasks = this.getTasksForSelected();
     const taskCount = tasks.length;
-    const todoCount = tasks.filter(task => task.status === 'todo').length;
-    const doneCount = tasks.filter(task => task.status === 'done').length;
+    const todoCount = tasks.filter(task => task.status === TaskStatus.Todo).length;
+    const doneCount = tasks.filter(task => task.status === TaskStatus.Done).length;
 
-    if (taskCount === 0 || todoCount == taskCount) {
-      return 'todo';
+    if (taskCount === 0 || todoCount === taskCount) {
+      return TaskStatus.Todo;
     } else if (doneCount === taskCount) {
-      return 'done';
+      return TaskStatus.Done;
     } else {
-      return 'doing';
+      return TaskStatus.Doing;
     }
   }
 
   updateTaskStatus(task: Task) {
-    if (task.status === 'done') {
+    if (task.status === TaskStatus.Done) {
       task.endDate = new Date();
-    } else if (task.status === 'doing') {
+    } else if (task.status === TaskStatus.Doing) {
       task.startDate = new Date();
     } else {
       task.startDate = new Date();
@@ -271,7 +272,7 @@ export class AppComponent {
       priority: this.newFeaturePriority,
       project: this.selectedProject!,
       owner: this.currentUser.login,
-      status: 'todo'
+      status: TaskStatus.Todo
     };
 
     this.features.push(newFeature);
@@ -324,7 +325,7 @@ export class AppComponent {
       priority: this.newTaskPriority,
       feature: this.selectedFeature!,
       estimatedCompletionTime: this.newTaskEstimatedCompletionTime,
-      status: 'todo',
+      status: TaskStatus.Todo,
       dateAdded: new Date(),
       startDate: new Date(),
       endDate: new Date(),
